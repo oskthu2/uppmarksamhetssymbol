@@ -159,6 +159,15 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (window.Babel && typeof window.Babel.transformScriptTags === 'function') {
       window.Babel.transformScriptTags();
     }
+    // Inject a fixed link back to the source repository
+    var _rl = document.createElement('a');
+    _rl.href = 'https://github.com/oskthu2/uppmarksamhetssymbol';
+    _rl.textContent = 'GitHub';
+    _rl.title = 'Källkod på GitHub';
+    _rl.target = '_blank';
+    _rl.rel = 'noopener noreferrer';
+    _rl.style.cssText = 'position:fixed;bottom:12px;right:12px;z-index:9999;background:rgba(26,26,26,0.85);color:#fff;padding:5px 12px;border-radius:6px;font:13px/1.6 -apple-system,BlinkMacSystemFont,sans-serif;text-decoration:none;';
+    document.body.appendChild(_rl);
   } catch (err) {
     setStatus('Error unpacking: ' + err.message);
     console.error('Bundle unpack error:', err);
