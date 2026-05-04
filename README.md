@@ -1,122 +1,127 @@
-# Uppmärksamhetssignal — SVG-bibliotek
+# Attention Signal (Uppmärksamhetssignal) — SVG Library
 
 [![GitHub Pages](https://img.shields.io/badge/Demo-GitHub%20Pages-blue)](https://oskthu2.github.io/uppmarksamhetssymbol/)
 
-Ett SVG-baserat bibliotek för den svenska **Uppmärksamhetssignalen** — ett standardiserat medicinskt vårdsymbol med sju oberoende fält som kan tändas och släckas dynamiskt.
+An SVG-based library for the Swedish **Attention Signal** (Uppmärksamhetssignalen / UMI) — a standardised medical care symbol with seven independent fields that can be toggled on and off dynamically.
 
-🌐 **Live-demo:** [oskthu2.github.io/uppmarksamhetssymbol](https://oskthu2.github.io/uppmarksamhetssymbol/)
-
----
-
-## Om symbolen
-
-Uppmärksamhetssignalen består av sju oberoende fält. Varje fält kan tändas eller släckas individuellt. Fältnumret i filnamnet beskriver vilka fält som lyser.
-
-| Kod | Fält | Beskrivning |
-|-----|------|-------------|
-| `1` | Topp | Övre delen av utropstecknet |
-| `0` | Ränder | Mitten av utropstecknet (fyra horisontella ränder) |
-| `4` | Punkt | Nedre punkt av utropstecknet |
-| `2` | Nordost | Övre höger pentagon |
-| `3` | Sydost | Nedre höger pentagon |
-| `5` | Sydväst | Nedre vänster pentagon |
-| `6` | Nordväst | Övre vänster pentagon |
-
-### Filnamnskonvention
-
-Filer namnges enligt vilka fält som är tända:
-
-| Filnamn | Fält | Betydelse |
-|---------|------|-----------|
-| `Signal` | inga | Tom symbol |
-| `Signal.014` | Topp + Ränder + Punkt | Utropstecknet — livshotande överkänslighet |
-| `Signal.25` | NE + SE | Allvarlig sjukdom / smitta |
-| `Signal.0123456` | alla | Alla fält tända |
-
-**Exempel:** `014` = topp (1) + ränder (0) + punkt (4) = utropstecknet.
+🌐 **Live demo:** [oskthu2.github.io/uppmarksamhetssymbol](https://oskthu2.github.io/uppmarksamhetssymbol/)
 
 ---
 
-## Användning
+## About the symbol
 
-### Interaktiv demo (rekommenderas)
+The Attention Signal (UMI — Uppmärksamhetssignal inom informationshantering) is a standardised Swedish medical symbol used in healthcare IT systems to flag important patient information such as severe allergies or infectious diseases. It consists of seven independent fields. Each field can be toggled on or off individually. The field number in the filename describes which fields are active.
 
-Öppna [`index.html`](index.html) i webbläsaren eller besök [live-demon](https://oskthu2.github.io/uppmarksamhetssymbol/) för:
+**Further reading:**
+- [Warning Information — international overview of the UMI symbol](https://sites.google.com/site/warninginformation/)
+- [Socialstyrelsen — Uppmärksamhetssignal (Swedish National Board of Health and Welfare)](https://www.socialstyrelsen.se/regler-och-riktlinjer/foreskrifter-och-allmanna-rad/konsoliderade-foreskrifter/200814-om-informationshantering-och-journalforing-i-halso--och-sjukvarden/)
 
-- Live-editor där du tänder/släcker fält interaktivt
-- Bibliotek med alla 128 kombinationer
-- Sök och filtrera kombinationer
-- Ladda ner enskilda SVG-filer
+| Code | Field | Description |
+|------|-------|-------------|
+| `1`  | Top    | Upper part of the exclamation mark |
+| `0`  | Stripes | Middle of the exclamation mark (four horizontal stripes) |
+| `4`  | Dot    | Lower dot of the exclamation mark |
+| `2`  | Northeast | Upper right pentagon |
+| `3`  | Southeast | Lower right pentagon |
+| `5`  | Southwest | Lower left pentagon |
+| `6`  | Northwest | Upper left pentagon |
 
-### Bädda in i HTML
+### Filename convention
+
+Files are named according to which fields are active:
+
+| Filename | Fields | Meaning |
+|----------|--------|---------|
+| `Signal` | none | Empty symbol |
+| `Signal.014` | Top + Stripes + Dot | Exclamation mark — life-threatening hypersensitivity |
+| `Signal.25` | NE + SE | Serious illness / infection |
+| `Signal.0123456` | all | All fields active |
+
+**Example:** `014` = top (1) + stripes (0) + dot (4) = the exclamation mark.
+
+---
+
+## Usage
+
+### Interactive demo (recommended)
+
+Open [`index.html`](index.html) in a browser or visit the [live demo](https://oskthu2.github.io/uppmarksamhetssymbol/) for:
+
+- Live editor to toggle fields interactively
+- Library of all 128 combinations
+- Search and filter combinations
+- Download individual SVG files
+- **Language toggle** (SWE / ENG) in the upper corner
+
+### Embed in HTML
 
 ```html
-<!-- Lägg in SVG-koden direkt i din HTML -->
+<!-- Inline the SVG code directly in your HTML -->
 <svg viewBox="0 0 2010 1983" xmlns="http://www.w3.org/2000/svg">
-  <!-- Symbolens kontur -->
+  <!-- Symbol outline -->
   <path d="M 1627 991 L 2010 1204 L 1718 1733 ..." fill="#1a1a1a" fill-rule="evenodd"/>
-  <!-- Fält 1: Topp -->
+  <!-- Field 1: Top -->
   <path data-field="1" d="M 736 60 L 1274 60 L 1274 740 L 736 740 Z" fill="#B60606"/>
-  <!-- Fält 0: Ränder -->
+  <!-- Field 0: Stripes -->
   <path data-field="0" d="M 736 820 L 1274 820 ..." fill="#B60606"/>
-  <!-- Fält 4: Punkt -->
+  <!-- Field 4: Dot -->
   <path data-field="4" d="M 740 1640 a 265 265 0 ..." fill="#FA7070"/>
 </svg>
 ```
 
-### Använda React-komponenten
+### Using the React component
 
-Projektet innehåller en `<UmiSymbol>` React-komponent (se `UMI.zip`):
+The project includes a `<UmiSymbol>` React component (see `UMI.zip`):
 
 ```jsx
-// Rendera med aktiva fält som sträng
+// Render with active fields as a string
 <UmiSymbol active="014" size={120} />
 
-// Rendera med aktiva fält som array
+// Render with active fields as an array
 <UmiSymbol active={[0, 1, 4]} size={120} />
 
-// Hämta SVG-koden som sträng (t.ex. för nedladdning)
+// Get the SVG code as a string (e.g. for download)
 const svg = umiSvgString({ active: "25" });
 document.body.innerHTML = svg;
 
-// Anpassade färger per fält
+// Custom colours per field
 <UmiSymbol active="0123456" colors={{ "0": "#000", "4": "#FF6B6B" }} />
 ```
 
 ---
 
-## Geometri
+## Geometry
 
 - **ViewBox:** `0 0 2010 1983`
-- Alla path-data är härledda från originalkällan (PowerPoint-vektorgrafik)
-- Symbolens kontur använder `fill-rule="evenodd"`
-- Fälten är separata `<path>`-element med `data-field`-attribut för enkel CSS/JS-styrning
+- All path data is derived from the original source (PowerPoint vector graphics)
+- The symbol outline uses `fill-rule="evenodd"`
+- Fields are separate `<path>` elements with `data-field` attributes for easy CSS/JS control
 
 ---
 
-## Filer i repot
+## Files in this repo
 
-| Fil | Beskrivning |
-|-----|-------------|
-| `index.html` | Fristående interaktiv sida — fungerar offline, ingen server krävs |
-| `UMI.zip` | Fullständigt källkodsprojekt (React-komponenter, bilder, PowerPoint-original) |
-
----
-
-## Publicera på GitHub Pages
-
-Repot är konfigurerat för automatisk publicering via GitHub Actions.
-
-**Manuell aktivering:**
-1. Gå till **Settings → Pages** i repot
-2. Under *Source*, välj **GitHub Actions**
-3. Sidan publiceras automatiskt vid varje push till `main`
+| File | Description |
+|------|-------------|
+| `index.html` | Standalone interactive page — works offline, no server required |
+| `UMI.zip` | Full source code project (React components, images, PowerPoint original) |
 
 ---
 
-## Licens
+## Publishing on GitHub Pages
 
-[![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/deed.sv)
+The repo is configured for automatic publishing via GitHub Actions.
 
-Detta verk är licensierat under **CC0 1.0 Universell** — fri att använda utan begränsningar.  
-Mer information: <https://creativecommons.org/publicdomain/zero/1.0/deed.sv>
+**Manual activation:**
+1. Go to **Settings → Pages** in the repo
+2. Under *Source*, select **GitHub Actions**
+3. The page is published automatically on every push to `main`
+
+---
+
+## Licence
+
+[![CC0](https://licensebuttons.net/p/zero/1.0/88x31.png)](https://creativecommons.org/publicdomain/zero/1.0/)
+
+This work is licensed under **CC0 1.0 Universal** — free to use without restrictions.  
+More information: <https://creativecommons.org/publicdomain/zero/1.0/>
